@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2026 ICRC Humanitarian Blockchain Project
+ * Copyright (c) 2026 Humanitarian cold-chain Blockchain Project
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

@@ -6,7 +6,7 @@ const { generateKeyPair, signData } = require('./identity/crypto-util');
 const { MedicalKit } = require('./contracts/asset');
 const crypto = require('crypto');
 
-console.log('Initializing ICRC Humanitarian Supply Chain Tracking System...\n');
+console.log('Initializing Humanitarian cold-chain Supply Chain Tracking System...\n');
 
 // Step 1: Generate a key pair for 'icrc-hq'
 console.log('Step 1: Generating key pair for ICRC Headquarters...');

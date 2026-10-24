@@ -1,6 +1,6 @@
 /*
  * MIT License
- * Copyright (c) 2026 ICRC Humanitarian Blockchain Project
+ * Copyright (c) 2026 Humanitarian cold-chain Blockchain Project
  */
 
 // test-prediction.js - Test script for Prediction Market functionality
@@ -8,7 +8,7 @@
 const { PredictionMarket } = require('./contracts/market');
 const { ShareManager } = require('./contracts/shares');
 
-console.log('=== ICRC Humanitarian Prediction Market Test ===\n');
+console.log('=== Humanitarian cold-chain Prediction Market Test ===\n');
 
 // Test 1: Create a prediction market
 console.log('📊 Test 1: Creating Prediction Market...');

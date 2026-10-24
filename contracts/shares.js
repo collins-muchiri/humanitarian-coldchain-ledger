@@ -1,6 +1,6 @@
 /*
  * MIT License
- * Copyright (c) 2026 ICRC Humanitarian Blockchain Project
+ * Copyright (c) 2026 Humanitarian cold-chain Blockchain Project
  */
 
 // contracts/shares.js - Share Management for Prediction Markets

@@ -1,0 +1,10 @@
+# GREEN: race probe vs fixed addBlock (single timestamp capture)
+$ node --test tests/ledger.test.js
+ok 1 - addBlock: stored hash always recomputes from stored fields (Date race probe)
+ok 2 - committed demo chain (ledger-data) passes full verification
+ok 3 - verifyChain detects data tampering (break-it proof for the verifier)
+ok 4 - verifyChain reports unreadable/missing ledger instead of throwing
+ok 5 - calculateHash is deterministic and order-sensitive
+# tests 5
+# pass 5
+# fail 0

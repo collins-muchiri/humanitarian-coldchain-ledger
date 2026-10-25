@@ -1,0 +1,81 @@
+=== Humanitarian cold-chain Prediction Market Test ===
+
+📊 Test 1: Creating Prediction Market...
+✅ Market Created: MKT-001
+   Question: Will Kit-001 arrive in Nairobi by Friday?
+   Kit ID: KIT-001
+   Deadline: 2026-02-21T23:59:59Z
+   Initial Pool - YES: 1000 NO: 1000
+
+📈 Test 2: Getting Market Probabilities...
+   YES Probability: 50%
+   NO Probability: 50%
+
+👥 Test 3: Setting up Share Manager...
+   Alice Balance: 10000 CR
+   Bob Balance: 10000 CR
+
+✅ Test 4: Alice buys 200 YES shares...
+   Transaction Cost: 200 CR
+   Alice Remaining Balance: 9800 CR
+   Alice Holdings: { YES: 200, NO: 0 }
+
+❌ Test 5: Bob buys 300 NO shares...
+   Transaction Cost: 240 CR
+   Bob Remaining Balance: 9760 CR
+   Bob Holdings: { YES: 0, NO: 300 }
+
+📊 Test 6: Updated Market Probabilities...
+   YES Probability: 47% (was 50%)
+   NO Probability: 53% (was 50%)
+   Total Volume: 440 CR
+
+💰 Test 7: Alice sells 100 YES shares...
+   Payout: 87.5 CR
+   Alice New Balance: 9887.5 CR
+
+⚖️ Test 8: Resolving Market (Kit arrived on time - YES wins)...
+⚖️ Market MKT-001 resolved as YES
+   Market Status: RESOLVED
+   Winning Outcome: YES
+
+🏆 Test 9: Resolving User Positions...
+   Alice Final Stats: {
+  correctPredictions: 1,
+  totalPredictions: 1,
+  profit: NaN,
+  totalTrades: 2
+}
+   Bob Final Stats: {
+  correctPredictions: 0,
+  totalPredictions: 1,
+  profit: 0,
+  totalTrades: 1
+}
+
+📋 Test 10: Leaderboard...
+   #1 user_alice: 100% accuracy, 1/1 correct
+   #2 user_bob: 0% accuracy, 0/1 correct
+
+📄 Test 11: Market JSON Output...
+{
+  "marketID": "MKT-001",
+  "question": "Will Kit-001 arrive in Nairobi by Friday?",
+  "kitID": "KIT-001",
+  "deadline": "2026-02-21T23:59:59Z",
+  "createdBy": "admin",
+  "createdAt": "2026-10-25T13:29:09.247Z",
+  "status": "RESOLVED",
+  "winningOutcome": "YES",
+  "totalVolume": 527.5,
+  "currentPrice": {
+    "YES": 44,
+    "NO": 56
+  },
+  "pool": {
+    "YES": 900,
+    "NO": 700
+  }
+}
+
+=== All Tests Completed Successfully! ===

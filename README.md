@@ -18,7 +18,17 @@ A distributed consensus system. See docs/WHAT_THIS_LEDGER_IS.md for the precise 
 and its limits.
 
 ## Run
-npm install, then npm start. See package.json for scripts.
+npm install, then npm start. Server honours `PORT` (default 3000) and `LEDGER_DIR`
+(default `./ledger-data`). See package.json for scripts.
+
+## Test
+`npm test` runs the assertion-backed suite (`node --test tests/`, 40 tests): crypto
+sign/verify and tamper detection, asset rules, hash-chain integrity (including a
+4000-block timestamp-race probe), market and share accounting, and the HTTP API
+against a spawned server (including the 503 degraded-health path).
+`npm run audit-ledger` verifies the committed chain and exits non-zero on tampering.
+Print-oriented demos live in `scripts/demo-*.js` (they mutate scratch state by design
+and exit non-zero on failure).
 
 ## Licence
 MIT.

@@ -1,0 +1,7 @@
+--- Testing Medical Kit Validation ---
+Valid kit validation result: { isValid: true, errors: [] }
+Invalid kit validation result: {
+  isValid: false,
+  errors: [ 'Temperature out of safe range (2-8°C): 15°C' ]
+}
+--- Validation Test Complete ---

@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
+name: CI
 
 on:
   push:
@@ -9,23 +6,49 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  build:
-
+  gates:
+    name: gates (node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
-
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+        # Node 18 EOL 2025-04-30, Node 20 EOL 2026-04-30 (docs/DECISIONS.md D-H3)
+        node-version: [ "22.x", "24.x" ]
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4.2.2 (pinned SHA)
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0 (pinned SHA)
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Clean install from lockfile
+        run: npm ci
+
+      - name: Supply-chain audit (fail on high+; see DECISIONS D-H5 for accepted mods)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Suppression audit (mission rule 4.7)
+        run: python3 scripts/audit_suppressions.py --check
+
+      - name: Tests (node --test, 40 assertions-backed tests)
+        run: npm test
+
+      - name: Chain integrity audit CLI (exits non-zero on broken chain)
+        run: npm run audit-ledger
+
+      - name: Tracked-file drift guard (tests/demos must not dirty the worktree)
+        run: |
+          git diff --exit-code
+          git ls-files --others --exclude-standard ledger-data | (! grep .)
+          echo "drift guard: worktree and committed chain untouched"

@@ -1,0 +1,40 @@
+name: Release Gate
+
+# Replaces the former npm-publish.yml. This repository is a simulation APP,
+# not a distributable library; package.json carries "private": true and it is
+# never published to npmjs or GitHub Packages. The former workflow would have
+# published the package under its historical (protected-name) identity on
+# every release - a legal and supply-chain hazard. Releases now re-run the
+# full gate suite against the tagged commit instead (docs/DECISIONS.md D-H2).
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tagged commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4.2.2 (pinned SHA)
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0 (pinned SHA)
+        with:
+          node-version: "24.x"
+          cache: 'npm'
+
+      - name: Clean install from lockfile
+        run: npm ci
+
+      - name: Supply-chain audit
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Tests
+        run: npm test
+
+      - name: Chain integrity audit
+        run: npm run audit-ledger

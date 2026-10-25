@@ -1,0 +1,5 @@
+--- Starting Asset Test ---
+❌ Test Failed!
+Reason: MedicalKit is not a constructor
+
+Engineer Tip: Ensure your crypto-util.js functions are correctly exported!

@@ -1,0 +1,42 @@
+# FAIL-FIRST evidence: full suite before shares.js NaN fix
+ok 1 - GET /health is 200 and reports a valid chain for the committed ledger
+not ok 2 - GET /health goes RED (503) when the ledger dependency is missing
+ok 3 - GET /ledger returns the chain; unknown routes return JSON 404
+ok 4 - POST /add-kit: valid kit appends a verifiable block to the configured ledger
+ok 5 - POST /add-kit: temperature excursion is rejected 400 and not appended
+ok 6 - POST /add-kit: missing fields are rejected 400
+ok 7 - GET /api/markets returns a list
+ok 8 - constructor populates all fields and self-signs
+ok 9 - verifySignature true for the signing key
+ok 10 - verifySignature false for a foreign key
+ok 11 - field tampering invalidates the signature (cold-chain integrity)
+ok 12 - toObject exposes exactly the persisted shape
+ok 13 - generateKeyPair returns hex private/public keys
+ok 14 - generated key pairs are distinct
+ok 15 - sign/verify round-trips
+ok 16 - verification fails on tampered message
+ok 17 - verification fails with the wrong public key
+ok 18 - signing is deterministic for the same key and message
+ok 19 - addBlock: stored hash always recomputes from stored fields (Date race probe)
+ok 20 - committed demo chain (ledger-data) passes full verification
+ok 21 - verifyChain detects data tampering (break-it proof for the verifier)
+ok 22 - verifyChain reports unreadable/missing ledger instead of throwing
+ok 23 - calculateHash is deterministic and order-sensitive
+not ok 24 - new market opens with OPEN status and symmetric 50/50 pricing
+ok 25 - buying YES moves its price up (constant-product invariant)
+ok 26 - buying on a resolved market throws
+ok 27 - resolving twice throws
+ok 28 - selling more than held throws (no phantom liquidity)
+ok 29 - sell returns a payout and reduces the position
+ok 30 - kit within 2-8C with valid signature passes
+ok 31 - temperature above 8C is rejected with a range error
+ok 32 - temperature below 2C is rejected (freeze risk)
+ok 33 - missing signature is rejected
+ok 34 - tampered payload fails signature verification
+ok 35 - initializeUser grants the default 10000 credits exactly once
+ok 36 - buy deducts the exact cost and records holdings
+ok 37 - sell credits the payout back to the user
+not ok 38 - user stats stay finite across a full trade cycle (NaN-poisoning regression)
+  error: 'profit must be finite, got NaN'
+not ok 39 - profit equals net trading cash flow (buy cost vs sell payout)
+npm test exit: 1

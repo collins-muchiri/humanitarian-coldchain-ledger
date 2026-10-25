@@ -71,8 +71,12 @@ class ShareManager {
         }
         this.userBalances[userId].holdings[market.marketID][outcome] += amount;
         
-        // Update stats
+        // Update stats. profit tracks net trading cash flow: buys subtract
+        // their cost here; sells add their payout (previously only sells
+        // touched profit and subtracted a non-existent transaction.cost,
+        // poisoning the stat with NaN on the first sale).
         this.userStats[userId].totalTrades++;
+        this.userStats[userId].profit -= transaction.cost;
 
         return transaction;
     }
@@ -100,7 +104,7 @@ class ShareManager {
         
         // Update stats
         this.userStats[userId].totalTrades++;
-        this.userStats[userId].profit += (transaction.payout - transaction.cost);
+        this.userStats[userId].profit += transaction.payout;
 
         return transaction;
     }

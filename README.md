@@ -1,5 +1,11 @@
 # Humanitarian Cold-Chain Ledger
 
+*Cold-chain integrity ledger prototype for humanitarian supply chains; JavaScript. Independent project, not affiliated with any agency.*
+
+![category](https://img.shields.io/badge/category-monitoring-evaluation-8B5CF6?style=flat-square) ![language](https://img.shields.io/badge/language-JavaScript-2563EB?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-16A34A?style=flat-square) ![maintenance](https://img.shields.io/badge/maintenance-active-16A34A?style=flat-square) ![repo](https://img.shields.io/badge/repo-humanitarian--coldchain--ledger-111827?style=flat-square)
+
+---
+
 An append-only, hash-chained ledger prototype for humanitarian supply chains, with cold-chain
 temperature compliance monitoring at 2 to 8 degrees Celsius, multi-location tracking and an audit
 trail.
@@ -32,3 +38,7 @@ and exit non-zero on failure).
 
 ## Licence
 MIT.
+
+## Contribution and license
+
+Issues and pull requests are welcome — please open an issue describing the proposed change before submitting substantive work. This project is released under the MIT License.

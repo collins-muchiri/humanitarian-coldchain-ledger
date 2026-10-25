@@ -7,13 +7,13 @@ const directories = [
   'bin',
   'config',
   'ledger-data',
-  path.join('identity', 'icrc-hq'),
+  path.join('identity', 'hq'),
   path.join('identity', 'suppliers'),
   'contracts',
   'logs'
 ];
 
-console.log('Creating directory structure for ICRC Supply Chain Tracking System...');
+console.log('Creating directory structure for the Humanitarian Cold-Chain Ledger simulation...');
 
 // Create each directory
 directories.forEach(dir => {

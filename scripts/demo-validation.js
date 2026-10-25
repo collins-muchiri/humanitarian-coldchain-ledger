@@ -14,11 +14,19 @@ const validKit = new MedicalKit("KIT-001", "Vaccine", "Central Warehouse", 4, "W
 const validationResult = validateMedicalKit(validKit.toObject(), keys.publicKey);
 
 console.log('Valid kit validation result:', validationResult);
+if (!validationResult.isValid) {
+    process.exitCode = 1;
+    console.error('DEMO FAILURE: valid kit was rejected');
+}
 
 // Create an invalid medical kit (temperature out of range)
 const invalidKit = new MedicalKit("KIT-002", "Vaccine", "Central Warehouse", 15, "Warehouse", keys.privateKey); // 15°C is too high
 const invalidValidationResult = validateMedicalKit(invalidKit.toObject(), keys.publicKey);
 
 console.log('Invalid kit validation result:', invalidValidationResult);
+if (invalidValidationResult.isValid) {
+    process.exitCode = 1;
+    console.error('DEMO FAILURE: temperature-excursion kit was accepted');
+}
 
 console.log('--- Validation Test Complete ---');

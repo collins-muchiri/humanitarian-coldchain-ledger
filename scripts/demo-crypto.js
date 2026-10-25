@@ -1,4 +1,5 @@
-const cryptoUtil = require('./identity/crypto-util'); // Path to your utility file
+// DEMO script (print-oriented); it mutates state by design. Assertion-backed tests live in tests/ (npm test).
+const cryptoUtil = require('../identity/crypto-util'); // Path to your utility file
 
 // 1. Generate Keys
 const keys = cryptoUtil.generateKeyPair();
@@ -18,5 +19,5 @@ const isValid = cryptoUtil.verifySignature(shipment, signature, keys.publicKey);
 if (isValid) {
     console.log("⭐⭐⭐ TEST PASSED: Signature is Valid!");
 } else {
-    console.error("❌ TEST FAILED: Signature is Invalid!");
+    process.exitCode = 1; console.error("❌ TEST FAILED: Signature is Invalid!");
 }

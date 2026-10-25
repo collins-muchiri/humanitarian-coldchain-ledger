@@ -1,0 +1,15 @@
+# FAIL-FIRST: race probe vs unfixed addBlock (two Date calls)
+$ node --test tests/ledger.test.js
+not ok 1 - addBlock: stored hash always recomputes from stored fields (Date race probe)
+    chain corrupted by addBlock timestamp race
+    +   'block 0: self-hash mismatch (stored a3560ae95d83b93cc6d087a8543b53eae8e8da5861b28a46a94d4d53f4abc8ea, recomputed 15f0fcd07bc5015d19f2b3b2812073a766a61d4a8e963896201e2f999f369e42)',
+    +   'block 148: self-hash mismatch (stored 66c7ecbaa9ee5c0189cf31ce7944bbf0f786ecdc7f7ad992d1d8087895086d08, recomputed 29277aadaac7ff6792cf76fe4213e7d7a4fd2710bd87a09843708076e05927e5)',
+    +   'block 506: self-hash mismatch (stored c49f3be08c4c01fa12e11a296cd7513a7cd1c0fa9912d75a4a6508a5a9397306, recomputed 54aec031703e614035bf86d360c3444fae9fd56404db030c1596af56f7738d47)',
+    +   'block 526: self-hash mismatch (stored 83d8bd50ca8a38bc108823eef227c83bc6a80f6f77f534cecea4376525fe7d25, recomputed 09797f8eb4660f9d854d866b0771df6ca993f3080c036a72371f33c8f08cbd75)',
+    +   'block 600: self-hash mismatch (stored 5c2e3b95ca13fd47d3cc777ee992de6598c51fed9da66df0f036416fa0d694b8, recomputed f9f0ac70ea3b63a8422de02c12818ebd19cb83b43ba63eef7c84d9dfb72b7cc7)',
+    +   'block 911: self-hash mismatch (stored addd00a48d1984506c7a9f903e83093830925d0b89e08c5eb7383115a3db43d5, recomputed 0922d89989bce975f43330a2eace405dd925b074e207c25ab5ac19a5b0335e6c)',
+    +   'block 1126: self-hash mismatch (stored 39ef1ffa396de9d24c77236be96583306e7e1d7882b1e8943645797bac755ee0, recomputed 5387a2b30aa56cfb4f5b893522d9c0a71e0c5733dbc00313a188f32315564ede)',
+    +   'block 1747: self-hash mismatch (stored b6618921e4a9ac5b35a9b6990415e93f56b1d0cb83db953d8ee05bed83a59b6e, recomputed 32f5e70f122c0553778cfdb17af7c79a93bec2bff28c86f25cbfc1713f5ec928)',
+    +   'block 2147: self-hash mismatch (stored 9bbe345dea0c9c77dbb734c92ff01c9fd988af8bed539598c91146b4d4526832, recomputed ac3cd7fbffc520c08157c1fd6f47283f0bfb308275f5984dec366477cd142dcd)',
+    +   'block 2417: self-hash mismatch (stored bd6c0c0f06eda60073dfde4b80f1128efeb979e24f17b848f0d444ac85e54673, recomputed af9e327265d37f216484b3db0937aed7079234a80dc826350ccf893e119d0c01)',
+exit: 1

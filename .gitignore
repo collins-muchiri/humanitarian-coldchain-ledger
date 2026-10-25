@@ -5,6 +5,8 @@ node_modules/
 identity/**/*.pem
 identity/**/*.key
 identity/icrc-hq/
+identity/hq/
+identity/**/private-key.txt
 identity/suppliers/
 
 # Local Environment & Logs

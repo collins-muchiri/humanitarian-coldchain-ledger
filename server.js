@@ -1,8 +1,9 @@
-// server.js - API Gateway for the ICRC Blockchain (Phase 3 & 6)
+// server.js - API Gateway for the Humanitarian Cold-Chain Ledger simulation
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const Blockchain = require('./contracts/ledger');
+const { verifyChain } = require('./contracts/integrity');
 const { MedicalKit } = require('./contracts/asset');
 const { validateMedicalKit } = require('./contracts/rules');
 const { generateKeyPair, signData } = require('./identity/crypto-util');
@@ -11,7 +12,9 @@ const { ShareManager } = require('./contracts/shares');
 const crypto = require('crypto');
 
 const app = express();
-const PORT = 3000;
+// Honour PORT from the environment so deploys and tests control the bind
+// address (previously hardcoded; env parity defect).
+const PORT = Number(process.env.PORT) || 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -19,18 +22,19 @@ app.use(express.json());
 // Serve static files from the 'public' folder
 app.use(express.static('public'));
 
-// Initialize the blockchain
-const blockchain = new Blockchain();
+// Initialize the blockchain (LEDGER_DIR overrides the default ledger-data/,
+// used by tests and alternate deployments)
+const blockchain = new Blockchain(process.env.LEDGER_DIR || undefined);
 
 // Initialize prediction markets and share manager
 const markets = new Map(); // Store active markets
 const shareManager = new ShareManager();
 
-// Load ICRC HQ keys (in a real system, these would be loaded securely)
+// Load HQ keys (in a real system, these would be loaded securely)
 let hqPrivateKey, hqPublicKey;
 
 // Try to load existing HQ keys, or generate new ones if they don't exist
-const hqKeyDir = path.join(__dirname, 'identity', 'icrc-hq');
+const hqKeyDir = path.join(__dirname, 'identity', 'hq');
 if (fs.existsSync(hqKeyDir)) {
   const privateKeyPath = path.join(hqKeyDir, 'private-key.txt');
   const publicKeyPath = path.join(hqKeyDir, 'public-key.txt');
@@ -43,7 +47,7 @@ if (fs.existsSync(hqKeyDir)) {
 
 // If no keys exist, generate new ones (for demo purposes only)
 if (!hqPrivateKey || !hqPublicKey) {
-  console.log('Generating new ICRC HQ keys for demo purposes...');
+  console.log('Generating new HQ keys for demo purposes...');
   const keys = generateKeyPair();
   hqPrivateKey = keys.privateKey;
   hqPublicKey = keys.publicKey;
@@ -58,20 +62,22 @@ if (!hqPrivateKey || !hqPublicKey) {
   fs.writeFileSync(path.join(hqKeyDir, 'public-key.txt'), hqPublicKey, 'utf8');
 }
 
-// GET /health: A simple check to see if the API is running
+// GET /health: dependency-aware probe. Verifies the ledger dependency
+// (blocks readable + every self-hash and link recomputed). Returns 503 when
+// the chain is broken or missing - a health check that cannot go red is
+// decoration (mission rule 9.2).
 app.get('/health', (req, res) => {
-  try {
-    res.status(200).json({
-      status: 'OK',
-      message: 'ICRC Blockchain API Gateway is running',
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: 'ERROR',
-      message: error.message
-    });
-  }
+  const report = verifyChain(blockchain.ledgerPath);
+  res.status(report.valid ? 200 : 503).json({
+    status: report.valid ? 'OK' : 'DEGRADED',
+    message: 'Humanitarian Cold-Chain Ledger API',
+    ledger: {
+      blockCount: report.blockCount,
+      chainValid: report.valid,
+      errors: report.errors.slice(0, 5)
+    },
+    timestamp: new Date().toISOString()
+  });
 });
 
 // GET /ledger: Returns the entire chain of JSON blocks from the /ledger-data folder
@@ -517,20 +523,29 @@ app.use('*', (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`🚀 ICRC Blockchain API Gateway running on http://localhost:${PORT}`);
-  console.log(`📋 Available endpoints:`);
-  console.log(`   GET  /health           - Health check`);
-  console.log(`   GET  /ledger           - View entire ledger`);
-  console.log(`   GET  /ledger/:id       - View history of specific kit`);
-  console.log(`   POST /add-kit          - Add new medical kit`);
-  console.log(`   GET  /audit            - Audit blockchain integrity`);
-  console.log(`\n📊 Prediction Market Endpoints (Phase 6):`);
-  console.log(`   GET  /api/markets      - Get all prediction markets`);
-  console.log(`   GET  /api/markets/:id  - Get specific market`);
-  console.log(`   POST /api/markets      - Create new market (Admin)`);
-  console.log(`   POST /api/markets/:id/buy  - Buy shares`);
-  console.log(`   POST /api/markets/:id/sell - Sell shares`);
-  console.log(`   GET  /api/leaderboard  - Get top forecasters`);
-  console.log(`   POST /api/markets/:id/resolve - Resolve market`);
-});
+// Start the server only when executed directly; tests import the app.
+function start() {
+  app.listen(PORT, () => {
+    console.log(`🚀 Humanitarian Cold-Chain Ledger API running on http://localhost:${PORT}`);
+    console.log(`📋 Available endpoints:`);
+    console.log(`   GET  /health           - Health check`);
+    console.log(`   GET  /ledger           - View entire ledger`);
+    console.log(`   GET  /ledger/:id       - View history of specific kit`);
+    console.log(`   POST /add-kit          - Add new medical kit`);
+    console.log(`   GET  /audit            - Audit blockchain integrity`);
+    console.log(`\n📊 Prediction Market Endpoints (Phase 6):`);
+    console.log(`   GET  /api/markets      - Get all prediction markets`);
+    console.log(`   GET  /api/markets/:id  - Get specific market`);
+    console.log(`   POST /api/markets      - Create new market (Admin)`);
+    console.log(`   POST /api/markets/:id/buy  - Buy shares`);
+    console.log(`   POST /api/markets/:id/sell - Sell shares`);
+    console.log(`   GET  /api/leaderboard  - Get top forecasters`);
+    console.log(`   POST /api/markets/:id/resolve - Resolve market`);
+  });
+}
+
+if (require.main === module) {
+  start();
+}
+
+module.exports = app;

@@ -1,0 +1,24 @@
+--- Starting Phase 2: Ledger Integrity Test ---
+Step 1: Creating Genesis Block...
+Block 15 added to ledger.
+Step 2: Adding a second block...
+Block 16 added to ledger.
+✅ Success! 17 blocks found in /ledger-data/
+Step 3: Checking Chain Integrity...
+🔗 Link [Block 0 <-> Block 1] is SECURE
+🔗 Link [Block 1 <-> Block 2] is SECURE
+🔗 Link [Block 2 <-> Block 3] is SECURE
+🔗 Link [Block 3 <-> Block 4] is SECURE
+🔗 Link [Block 4 <-> Block 5] is SECURE
+🔗 Link [Block 5 <-> Block 6] is SECURE
+🔗 Link [Block 6 <-> Block 7] is SECURE
+🔗 Link [Block 7 <-> Block 8] is SECURE
+🔗 Link [Block 8 <-> Block 9] is SECURE
+🔗 Link [Block 9 <-> Block 10] is SECURE
+🔗 Link [Block 10 <-> Block 11] is SECURE
+🔗 Link [Block 11 <-> Block 12] is SECURE
+🔗 Link [Block 12 <-> Block 13] is SECURE
+🔗 Link [Block 13 <-> Block 14] is SECURE
+🔗 Link [Block 14 <-> Block 15] is SECURE
+🔗 Link [Block 15 <-> Block 16] is SECURE
+⭐⭐⭐ PHASE 2 TEST PASSED: Ledger is Immutable!

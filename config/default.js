@@ -1,4 +1,4 @@
-// config/default.js - Default configuration for the ICRC Supply Chain Tracking System
+// config/default.js - Default configuration for the humanitarian cold-chain ledger simulation
 require('dotenv').config();
 
 module.exports = {

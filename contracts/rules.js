@@ -1,4 +1,4 @@
-// contracts/rules.js - Validation logic for the ICRC medical tracking system
+// contracts/rules.js - Validation logic for the humanitarian cold-chain simulation
 const { verifySignature } = require('../identity/crypto-util');
 
 /**

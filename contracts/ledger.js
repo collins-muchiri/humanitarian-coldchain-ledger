@@ -1,19 +1,29 @@
-// contracts/ledger.js - Blockchain manager for the ICRC medical tracking system
+// contracts/ledger.js - Hash-chained ledger manager for the humanitarian cold-chain simulation
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
 class Blockchain {
-  constructor() {
-    this.ledgerPath = path.join(__dirname, '..', 'ledger-data');
-    
-    // Create ledger directory if it doesn't exist
-    if (!fs.existsSync(this.ledgerPath)) {
+  /**
+   * @param {string} [ledgerPath] directory holding block_*.json files.
+   *   Defaults to <repo>/ledger-data. Parameterised so tests (and alternate
+   *   deployments) can run against isolated directories.
+   */
+  constructor(ledgerPath) {
+    const explicit = Boolean(ledgerPath);
+    this.ledgerPath = ledgerPath || path.join(__dirname, '..', 'ledger-data');
+
+    // The DEFAULT ledger directory is created on first run (fresh checkout).
+    // An EXPLICITLY configured path is never auto-created: a missing
+    // LEDGER_DIR is a deployment/configuration error and must surface (health
+    // probe reports 503, writes fail with ENOENT) instead of being silently
+    // repaired into an empty chain that looks healthy.
+    if (!explicit && !fs.existsSync(this.ledgerPath)) {
       fs.mkdirSync(this.ledgerPath, { recursive: true });
     }
-    
+
     // Check if chain already exists by looking for block files
-    this.chainExists = this.checkChainExists();
+    this.chainExists = fs.existsSync(this.ledgerPath) ? this.checkChainExists() : false;
   }
 
   /**
@@ -68,13 +78,17 @@ class Blockchain {
     // Calculate previous hash
     const previousHash = latestBlock ? latestBlock.hash : '0000000000000000000000000000000000000000000000000000000000000000';
     
-    // Create the new block
+    // Create the new block. The timestamp is captured ONCE: hashing a
+    // different instant than the one stored corrupts the block at birth
+    // whenever the two reads straddle a millisecond boundary (defect HCL-005;
+    // regression-probed by tests/ledger.test.js with 4000 blocks).
+    const timestamp = new Date().toISOString();
     const newBlock = {
       index,
-      timestamp: new Date().toISOString(),
+      timestamp,
       data,
       previousHash,
-      hash: this.calculateHash(index, new Date().toISOString(), data, previousHash)
+      hash: this.calculateHash(index, timestamp, data, previousHash)
     };
 
     // Save the block as a JSON file

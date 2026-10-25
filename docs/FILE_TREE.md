@@ -1,7 +1,7 @@
-# File Tree: ICRC
+# File Tree (historical snapshot)
 
 **Generated:** 2/14/2026, 10:06:09 AM
-**Root Path:** `c:\Users\Muchi\Desktop\Projects\ICRC`
+**Root Path:** repository root. Snapshot predates the 2026 restructure: demo scripts moved to `scripts/`, assertion-backed tests live in `tests/`.
 
 ```
 ├── 📁 config

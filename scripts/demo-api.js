@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+// DEMO script (print-oriented); it mutates state by design. Assertion-backed tests live in tests/ (npm test).
 const axios = require('axios');
 
 // Helper function to generate a random kit ID
@@ -62,7 +62,7 @@ async function testNetworkAccess() {
         console.log("✅ API Response:", response.data.message);
 
     } catch (error) {
-        console.error("❌ Test Failed:", error.response ? error.response.data : error.message);
+        process.exitCode = 1; console.error("❌ Test Failed:", error.response ? error.response.data : error.message);
     }
 }
 

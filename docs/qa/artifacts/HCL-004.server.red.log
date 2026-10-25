@@ -1,0 +1,17 @@
+Generating new ICRC HQ keys for demo purposes...
+🚀 ICRC Blockchain API Gateway running on http://localhost:3000
+📋 Available endpoints:
+   GET  /health           - Health check
+   GET  /ledger           - View entire ledger
+   GET  /ledger/:id       - View history of specific kit
+   POST /add-kit          - Add new medical kit
+   GET  /audit            - Audit blockchain integrity
+
+📊 Prediction Market Endpoints (Phase 6):
+   GET  /api/markets      - Get all prediction markets
+   GET  /api/markets/:id  - Get specific market
+   POST /api/markets      - Create new market (Admin)
+   POST /api/markets/:id/buy  - Buy shares
+   POST /api/markets/:id/sell - Sell shares
+   GET  /api/leaderboard  - Get top forecasters
+   POST /api/markets/:id/resolve - Resolve market

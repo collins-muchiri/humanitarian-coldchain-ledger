@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICRC | Global Supply Chain Ledger</title>
+    <title>Humanitarian Cold-Chain Ledger</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine JS CDN -->
@@ -12,13 +12,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Custom styles for humanitarian theme */
-        .bg-icrc-red {
+        .bg-brand-red {
             background-color: #EE3224;
         }
-        .text-icrc-red {
+        .text-brand-red {
             color: #EE3224;
         }
-        .border-icrc-red {
+        .border-brand-red {
             border-color: #EE3224;
         }
         .bg-deep-navy {
@@ -55,14 +55,14 @@
         <div class="mb-10">
             <h2 class="text-xl font-bold flex items-center">
                 <i data-lucide="shield-check" class="mr-2"></i>
-                ICRC Supply Chain
+                Cold-Chain Ledger
             </h2>
             <p class="text-gray-400 text-sm mt-1">Blockchain Ledger</p>
         </div>
         
         <nav>
             <ul class="space-y-2">
-                <li class="bg-icrc-red rounded-lg p-3 flex items-center">
+                <li class="bg-brand-red rounded-lg p-3 flex items-center">
                     <i data-lucide="home" class="mr-3"></i>
                     <span>Dashboard</span>
                 </li>
@@ -91,7 +91,7 @@
                     <span class="text-deep-navy font-bold">HQ</span>
                 </div>
                 <div>
-                    <p class="font-medium">ICRC Admin</p>
+                    <p class="font-medium">Ledger Admin</p>
                     <p class="text-gray-400 text-sm">Headquarters</p>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                     <button 
                         @click="auditLedger()"
                         :disabled="isVerifying"
-                        class="bg-icrc-red hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center disabled:opacity-50"
+                        class="bg-brand-red hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center disabled:opacity-50"
                     >
                         <i data-lucide="shield-alert" class="mr-2" x-show="!isVerifying"></i>
                         <i data-lucide="loader" class="mr-2 animate-spin" x-show="isVerifying"></i>
@@ -130,14 +130,14 @@
         <!-- Asset Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <!-- Total Kits Tracked Card -->
-            <div class="bg-white rounded-xl shadow p-6 border-l-4 border-icrc-red">
+            <div class="bg-white rounded-xl shadow p-6 border-l-4 border-brand-red">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-sm font-medium">Total Kits Tracked</p>
                         <p class="text-3xl font-bold text-deep-navy mt-1" x-text="stats.total"></p>
                     </div>
                     <div class="bg-red-100 p-3 rounded-lg">
-                        <i data-lucide="package" class="text-icrc-red"></i>
+                        <i data-lucide="package" class="text-brand-red"></i>
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
                     type="text"
                     placeholder="Search by Kit ID..."
                     x-model="searchTerm"
-                    class="w-full p-4 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-icrc-red focus:border-transparent"
+                    class="w-full p-4 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent"
                 />
                 <i data-lucide="search" class="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"></i>
             </div>

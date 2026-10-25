@@ -1,21 +1,23 @@
 {
-  "name": "icrc-supply-chain-tracking",
-  "version": "1.0.0",
-  "description": "Humanitarian supply chain tracking system for the ICRC",
+  "name": "humanitarian-coldchain-ledger",
+  "version": "1.2.0",
+  "description": "Hash-chained cold-chain ledger simulation for humanitarian medical supply tracking (demo data only; see DISCLAIMER.md)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "server": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test tests/*.test.js",
+    "audit-ledger": "node bin/audit-ledger.js"
   },
   "keywords": [
-    "blockchain",
-    "supply-chain",
+    "cold-chain",
     "humanitarian",
-    "icrc",
-    "tracking"
+    "supply-chain",
+    "ledger",
+    "hash-chain",
+    "simulation"
   ],
-  "author": "Senior Blockchain Engineer",
+  "author": "Collins Kamama (https://github.com/collins-muchiri)",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.13.5",
@@ -23,5 +25,6 @@
     "dotenv": "^16.4.5",
     "elliptic": "^6.5.9",
     "express": "^4.22.1"
-  }
+  },
+  "private": true
 }

@@ -2,11 +2,11 @@
  * MIT License
  * Copyright (c) 2026 Humanitarian cold-chain Blockchain Project
  */
-
+// DEMO script (print-oriented); it mutates state by design. Assertion-backed tests live in tests/ (npm test).
 // test-prediction.js - Test script for Prediction Market functionality
 
-const { PredictionMarket } = require('./contracts/market');
-const { ShareManager } = require('./contracts/shares');
+const { PredictionMarket } = require('../contracts/market');
+const { ShareManager } = require('../contracts/shares');
 
 console.log('=== Humanitarian cold-chain Prediction Market Test ===\n');
 
@@ -51,7 +51,7 @@ try {
     console.log('   Alice Remaining Balance:', shareManager.getBalance('user_alice').credits, 'CR');
     console.log('   Alice Holdings:', shareManager.getUserPositions('user_alice').holdings[market.marketID]);
 } catch (error) {
-    console.error('   ❌ Error:', error.message);
+    process.exitCode = 1; console.error('   ❌ Error:', error.message);
 }
 console.log('');
 
@@ -63,7 +63,7 @@ try {
     console.log('   Bob Remaining Balance:', shareManager.getBalance('user_bob').credits, 'CR');
     console.log('   Bob Holdings:', shareManager.getUserPositions('user_bob').holdings[market.marketID]);
 } catch (error) {
-    console.error('   ❌ Error:', error.message);
+    process.exitCode = 1; console.error('   ❌ Error:', error.message);
 }
 console.log('');
 
@@ -82,7 +82,7 @@ try {
     console.log('   Payout:', sellTransaction.payout, 'CR');
     console.log('   Alice New Balance:', shareManager.getBalance('user_alice').credits, 'CR');
 } catch (error) {
-    console.error('   ❌ Error:', error.message);
+    process.exitCode = 1; console.error('   ❌ Error:', error.message);
 }
 console.log('');
 

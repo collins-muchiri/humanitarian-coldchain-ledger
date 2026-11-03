@@ -41,4 +41,4 @@ MIT.
 
 ## Contribution and license
 
-Issues and pull requests are welcome — please open an issue describing the proposed change before submitting substantive work. This project is released under the MIT License.
+Issues and pull requests are welcome: please open an issue describing the proposed change before submitting substantive work. This project is released under the MIT License.

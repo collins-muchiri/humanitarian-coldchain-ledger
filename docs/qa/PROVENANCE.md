@@ -1,7 +1,7 @@
 # PROVENANCE.md
 
 Repo: humanitarian-coldchain-ledger (formerly icrc-humanitarian-ledger; renamed for
-legal reasons - see RENAMING_AND_LEGAL_PLAN.md and DISCLAIMER.md).
+legal reasons: see RENAMING_AND_LEGAL_PLAN.md and DISCLAIMER.md).
 Census date: 2026-10-25 (sandbox clock), from `git log --format='%an <%ae>'`.
 
 ## Authorship census (main at time of audit)

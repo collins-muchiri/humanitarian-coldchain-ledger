@@ -7,7 +7,7 @@ PATTERN: console.error without exit code (pre-fix census)
 ./identity/crypto-util.js:67:    console.error('Error verifying signature:', error.message);
 ./docs/qa/artifacts/sweep_raw.md:6:PATTERN: console.error without exit code (pre-fix census)
 ./bin/audit-ledger.js:17:  console.error('CHAIN INTEGRITY COMPROMISED:');
-./bin/audit-ledger.js:19:    console.error(` - ${err}`);
+./bin/audit-ledger.js:19: console.error(` - ${err}`);
 ./public/index.html:284:                        console.error("❌ Failed to sync ledger:", err);
 ./public/markets.html:278:                        console.error('Failed to fetch markets:', err);
 ./public/markets.html:288:                        console.error('Failed to fetch leaderboard:', err);

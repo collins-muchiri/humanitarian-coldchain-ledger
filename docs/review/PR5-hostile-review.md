@@ -13,7 +13,7 @@ Reviewer: same operator, hostile-reviewer mode (mission rule 11.2). Date: 2026-1
    worktree AND ledger-data untracked additions.
 4. Test-suite integrity: the suite is NEW (40 tests). The removed root `test-*.js`
    were never executed by any runner (npm test was an exit-1 stub; no runner config
-   referenced them) and exited 0 even when their own printed checks failed - the
+   referenced them) and exited 0 even when their own printed checks failed: the
    reclassification to demos is documented as D-H6 with pre-fix evidence
    (HCL-003.*.red.log shows exit 0 on all five runnable scripts).
 5. Fail-first chain complete: HCL-005 (race, red 10+/4000 blocks -> green),
@@ -21,7 +21,7 @@ Reviewer: same operator, hostile-reviewer mode (mission rule 11.2). Date: 2026-1
 6. Legal scrub verified by case-insensitive sweep: zero ICRC/Red-Cross references
    remain outside the four legal-context documents listed in D-H1.
 7. Accepted residual risk (D-H5): qs moderate (express@4 pin), elliptic low (no
-   upstream fix) - both visible, gate escalates automatically at high+.
+   upstream fix): both visible, gate escalates automatically at high+.
 
 ## Verdict
 MERGEABLE once CI green. No rule-4 violation found.

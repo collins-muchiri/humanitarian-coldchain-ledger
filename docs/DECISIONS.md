@@ -29,7 +29,7 @@ option, recorded here, flagged in the final report).
 - Decision: (b)+(c): package.json now has "private": true (npm refuses to publish),
   npm-publish.yml replaced by release-gate.yml which re-runs install/audit/tests/
   chain-audit on the tagged commit. This removes a job for a product reason (the
-  publish target is itself the defect), NOT to make a red gate disappear - the test
+  publish target is itself the defect), NOT to make a red gate disappear: the test
   gate that made the old workflow red is kept and now passes for real.
 - Reversible: re-add a publish workflow if the project ever becomes a library.
 
@@ -57,7 +57,7 @@ option, recorded here, flagged in the final report).
 
 - npm audit after remediation: 0 critical, 0 high (was 1 critical + 4 high).
 - qs moderate (DoS in qs.stringify) is pinned by express@4.22.1's own dependency;
-  fixing requires the express 5 major migration - a feature-scale change outside a
+  fixing requires the express 5 major migration: a feature-scale change outside a
   reliability pass (rule 11.1). CI gate is set at --audit-level=high so this is a
   documented, visible acceptance, not a hidden one. Tracked in issue #3 comments.
 - elliptic low: no fixed release exists upstream (fixAvailable=false). It is the
